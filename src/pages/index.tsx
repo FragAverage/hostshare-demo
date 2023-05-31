@@ -61,6 +61,7 @@ export default function Home() {
                 Listing={item}
                 />
             )) : (
+              // TODO: Do this correctly - this is a hack
               <>
                 <SkeletonTile />
                 <SkeletonTile />
