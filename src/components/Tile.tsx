@@ -11,9 +11,10 @@ type Props = {
   Listing: Listing;
   StartDate?: string;
   EndDate?: string;
+  IsHome?: boolean;
 };
 
-const Tile = ({ Listing, StartDate, EndDate }: Props) => {
+const Tile = ({ Listing, StartDate, EndDate, IsHome }: Props) => {
 
   const GenerateLink = () => {
     if(!StartDate || !EndDate) return `/listing?id=${Listing.info.id}`;
@@ -24,11 +25,19 @@ const Tile = ({ Listing, StartDate, EndDate }: Props) => {
   const FinalCheckIn = StartDate ? DayJS(StartDate).format('MM/DD/YYYY') : DayJS().format('MM/DD/YYYY')
   const FinalCheckOut = EndDate ? DayJS(EndDate).format('MM/DD/YYYY') : DayJS().add(2, 'days').format('MM/DD/YYYY')
 
-  const CalculateNights = () => {
+  const CalculateNights = React.useCallback(() => {
     const CheckInDate = DayJS(FinalCheckIn)
     const CheckOutDate = DayJS(FinalCheckOut)
     return CheckOutDate.diff(CheckInDate, 'days')
-  }
+  }, [FinalCheckIn, FinalCheckOut])
+
+  const DisplayPrice = React.useMemo(() => {
+    const prices = pricing({PricePerNight: Listing.info.price, Nights: CalculateNights()})
+    if(IsHome){
+      return `${Listing.info.price}`
+    }
+    return `${prices.Total}`
+  }, [CalculateNights, IsHome, Listing.info.price])
 
   return (
     <div className="w-full cursor-pointer">
@@ -53,7 +62,7 @@ const Tile = ({ Listing, StartDate, EndDate }: Props) => {
             <span className="font-light">
               Individual Host
             </span>
-            <span className="">{Listing.info.currency.symbol}{pricing({PricePerNight: Listing.info.price, Nights: CalculateNights()}).Total} total</span>
+            <span className="">{Listing.info.currency.symbol}{DisplayPrice} {IsHome ? 'night' : 'total'}</span>
           </div>
           <div className="flex flex-row items-start">
             <div className="flex flex-row items-center">
