@@ -121,7 +121,7 @@ const Search = (props: Props) => {
       </div>
       {State.IsOpen && (
         <div className='fixed top-0 left-0 w-full bg-gray-950 bg-opacity-80 h-full z-50'>
-          <div className='w-full h-full md:w-3/4 md:h-3/4 mx-auto bg-gray-100 relative sm:rounded-b-xl'>
+          <div className='w-full h-full md:w-1/2 md:h-3/4 max-w-[1000px] mx-auto bg-gray-100 relative sm:rounded-b-xl'>
             <div className='relative w-full h-max p-4'>
               <FontAwesomeIcon icon={faMultiply} className='w-4 h-4 top-6 right-6 border-2 p-2 rounded-full cursor-pointer hover:text-primary' onClick={HandleClose} />
               

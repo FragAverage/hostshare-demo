@@ -13,7 +13,10 @@ export default function handler(
   if(!location) {
     return res.status(404);
   }else{
-    data.data = data.data.filter((item) => item.info.location.city.toLowerCase() === location.toString().toLowerCase() && item.info.available)
+    data.data = data.data.filter((item) => (
+      item.info.location.city.toLowerCase() === location.toString().toLowerCase() 
+      || item.info.location.country.title.toLowerCase() === location.toString().toLowerCase())
+      && item.info.available)
     res.send(data)
   }
 }

@@ -3,7 +3,7 @@ import { getCenter } from "geolib";
 import ReactMapGL, { Marker } from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-type Props = {
+type MapProps = {
   searchResults: Listing[];
 };
 
@@ -12,7 +12,7 @@ type Selection = {
   latitude: number;
 }
 
-const Map = (props: Props) => {
+const Map = (props: MapProps) => {
   const [selectedLocation, setSelectedLocation] = React.useState<Selection>({
     longitude: 0,
     latitude: 0,
@@ -32,7 +32,7 @@ const Map = (props: Props) => {
   const [viewport, setViewport] = React.useState({
     latitude: center ? center.latitude : 0,
     longitude: center? center.longitude : 0,
-    zoom: 12,
+    zoom: 5,
   });
 
   return (
@@ -40,13 +40,17 @@ const Map = (props: Props) => {
       mapStyle="mapbox://styles/fragaverage/cks1m8xvm23x117pdb9phbdoz"
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
       attributionControl={false}
-      {...viewport}
       onMove={(e) => setViewport(prev => ({
         ...prev,
         longitude: e.viewState.longitude,
         latitude: e.viewState.latitude,
       }))}
+      onZoom={(e) => setViewport(prev => ({
+        ...prev,
+        zoom: e.viewState.zoom,
+      }))}
       style={{ width: "100%", height: "91.5vh" }}
+      {...viewport}
     >
       {props.searchResults.map((result) => (
         <div key={result.info.location.long} className="z-0 hover:shadow-lg">
