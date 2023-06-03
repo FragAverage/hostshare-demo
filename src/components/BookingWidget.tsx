@@ -35,7 +35,7 @@ const BookingWidget = ({ Listing, CheckIn, CheckOut }: BookingWidgetProps) => {
           </span>
           night
         </div>
-        <div className='flex flex-row'>
+        <div className='flex flex-row items-center'>
           <div className="flex flex-row items-center">
             <FontAwesomeIcon icon={faStar} className="text-black w-4 h-4 mr-1" />
             {Listing.info.ratings.guestSatisfactionOverall.toFixed(1)}
