@@ -3,6 +3,7 @@ import DayJS from '@/utils/dayjs'
 import { faAdjust, faChevronLeft, faMagnifyingGlass, faMultiply, faSliders } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs, { Dayjs } from 'dayjs'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { RangeKeyDict } from 'react-date-range'
@@ -31,7 +32,7 @@ const Search = (props: Props) => {
     StartDate: DayJS(),
     EndDate: DayJS(),
     NoOfGuests: 1,
-  })  
+  })
 
   const Router = useRouter();
 
@@ -102,17 +103,17 @@ const Search = (props: Props) => {
     }))
   }
 
-  const HandleClickBack = () => {
-    if(props.ListingPageView) {
-      Router.push(Constants.WebHost);
-    }
-  }
-
   return (
     <>
       <div className='flex flex-row w-full justify-between items-center border border-gray-200 rounded-full px-4 py-1 shadow-md'>
         {/* Magnifying Glass */}
-        <div className='flex'><FontAwesomeIcon icon={props.ListingPageView ?  faChevronLeft : faMagnifyingGlass} className='w-4 h-4' onClick={HandleClickBack} /></div>
+        {props.ListingPageView ? (
+          <Link href="/" prefetch={false}>
+            <div className='flex'><FontAwesomeIcon icon={faChevronLeft} className='w-4 h-4'/></div>
+          </Link>
+        ) : (
+          <div className='flex'><FontAwesomeIcon icon={faMagnifyingGlass} className='w-4 h-4' /></div>
+        )}
         <div className='flex flex-col ml-3 w-full' onClick={HandleOpen}>
           <div className='flex text-sm font-semibold'>Anywhere</div>
           <div className='flex text-sm font-light'>Any week · Add guests</div>

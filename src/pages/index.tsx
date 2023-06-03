@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Tile from "@/components/Tile";
 import Constants from "@/utils/constants";
+import { GetServerSideProps } from "next";
 
 type Props = {
   Data: Listings;
@@ -91,7 +92,7 @@ export default function Home(props: Props) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(`${Constants.WebHost}/api/listings/get`);
   const data = await res.json();
 

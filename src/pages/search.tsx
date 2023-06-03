@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Tile from "@/components/Tile";
 import DayJS from "@/utils/dayjs";
 import Constants from "@/utils/constants";
+import Link from "next/link";
 
 type Props = {
   searchResults: any[];
@@ -22,10 +23,6 @@ const SearchPage = (props: Props) => {
   const formattedEndDate = DayJS(realEndDate).format("DD MMMM YY");
 
   const range = `${formattedStartDate} to ${formattedEndDate}`;
-
-  const HandleGoBack = () => {
-    router.push('/');
-  };
 
   return (
     <div>
@@ -65,7 +62,9 @@ const SearchPage = (props: Props) => {
           <div className="flex flex-col w-full h-full py-10 items-center">
             <div></div>
             Sorry we didnt find any results
-            <button className="bg-gray-100 px-4 py-2 mt-4 border border-gray-300 shadow-md rounded-xl" onClick={HandleGoBack}>Go back</button>
+            <Link href="/" prefetch={false}>
+              <button className="bg-gray-100 px-4 py-2 mt-4 border border-gray-300 shadow-md rounded-xl">Go back</button>
+            </Link>
           </div>
         )}
       </main>
@@ -79,7 +78,7 @@ export async function getServerSideProps(context: any) {
   const { location } = context.query;
 
   const searchResults = await fetch(
-    `${Constants.WebHost}/api/listings/get?location=${location}`
+    `${Constants.WebHost}/api/listings/search?location=${location}`
   ).then((res) => res.json());
 
   return {
