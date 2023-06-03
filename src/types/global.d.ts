@@ -10,7 +10,14 @@ type Listing = {
   category?: string;
   ref: string;
   info: {
-    amenities: any[];
+    amenities: {
+      data: {
+        group: string;
+        available: boolean
+        title: string
+        type: string
+      }[]
+    };
     available: boolean;
     currency: {
       code: string;
@@ -37,11 +44,7 @@ type Listing = {
     id: string;
     images: {
       count: number;
-      data: {
-        height: number;
-        width: number;
-        url: string;
-      }[]
+      data: ListingImage[]
     }
     location: {
       lat: number;
@@ -72,4 +75,10 @@ type Listing = {
     type: string;
     visibleReviewCount: number;
   }
+}
+
+type ListingImage = {
+  height: number;
+  width: number;
+  url: string;
 }

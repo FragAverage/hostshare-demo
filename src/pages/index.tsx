@@ -1,13 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import Head from "next/head";
-
-import Header from "@/components/Header";
-import Banner from "@/components/Banner";
 import React from "react";
-import { IfStatement } from "typescript";
-import Tile from "@/components/Tile";
+
 import SkeletonTile from "@/components/SkeletonTile";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Tile from "@/components/Tile";
 
 type HomeState = {
   IsFetching: boolean;
@@ -43,20 +39,15 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Hostshare</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <Header />
       {/* <Banner /> */}
 
-      <main className="max-w-screen-2xl mx-auto px-8 sm:px-16">
+      <main className="max-w-screen-2xl mx-auto px-4 md:px-16">
         <section className="pt-6">
           {/* Get data from server */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
             {State.Data?.data ? State.Data?.data.filter((item: Listing) => item.info.available).slice(0, 20).map((item: Listing, index) => (
-              <Tile 
+              <Tile
                 key={index}
                 Listing={item}
                 />
@@ -88,6 +79,8 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <Footer />
     </div>
   );
 }

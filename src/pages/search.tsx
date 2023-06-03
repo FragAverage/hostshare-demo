@@ -1,10 +1,10 @@
+import React from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+
 import Header from "@/components/Header";
 import Tile from "@/components/Tile";
 import DayJS from "@/utils/dayjs";
-import { format } from "date-fns";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import React from "react";
 
 type Props = {
   searchResults: any[];
@@ -28,7 +28,7 @@ const SearchPage = (props: Props) => {
     <div>
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guests`} />
       <main className="flex flex-row">
-        <section className="flex flex-col h-screen pt-6 px-6 w-full lg:w-1/2">
+        <section className="flex flex-col h-screen pt-6 px-6 w-full">
           <p className="text-xs">
             {props.searchResults.length} Stays - {range} - for {noOfGuests}{" "}
             guests
@@ -47,16 +47,16 @@ const SearchPage = (props: Props) => {
           </div>
 
           <div className="overflow-scroll scrollbar-hide">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {props.searchResults.map((item: Listing, index) => (
-                <Tile key={index} Listing={item} />
+                <Tile key={index} Listing={item} StartDate={realStartDate} EndDate={realEndDate} />
               ))}
             </div>
           </div>
         </section>
-        <section className="hidden lg:flex lg:w-1/2 h-screen">
+        {/* <section className="hidden lg:flex lg:w-1/2 h-screen">
           <Map searchResults={props.searchResults} />
-        </section>
+        </section> */}
       </main>
     </div>
   );
@@ -67,9 +67,8 @@ export default SearchPage;
 export async function getServerSideProps(context: any) {
   const { location } = context.query;
 
-  // TODO: Change from localhost to production URL
   const searchResults = await fetch(
-    `http://localhost:3000/api/listings/get?location=${location}`
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/listings/get?location=${location}`
   ).then((res) => res.json());
 
   return {

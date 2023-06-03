@@ -1,7 +1,6 @@
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faGlobe, faMagnifyingGlass, faUserCircle, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { DateRangePicker } from "react-date-range";
@@ -10,6 +9,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 
 type Props = {
   placeholder?: string;
+  HideOnMobile?: boolean;
 };
 
 const Header = (props: Props) => {
@@ -48,7 +48,7 @@ const Header = (props: Props) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md p-5 md:px-10 ">
+    <header className={`${props.HideOnMobile ? 'hidden md:block' : ''} sticky top-0 z-50 bg-white shadow-md p-5 md:px-10`}>
       <div className="max-w-screen-xl grid grid-cols-3 mx-auto">
         {/* Left */}
         <div

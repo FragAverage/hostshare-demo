@@ -7,7 +7,7 @@ const SkeletonTile = (props: Props) => {
     <div
       className="w-full animate-pulse"
     >
-      <div className="flex items-center justify-center w-full h-[250px] aspect-square bg-gray-300 rounded dark:bg-gray-700">
+      <div className="flex items-center justify-center w-full h-[200px] md:h-[250px] aspect-square bg-gray-300 rounded dark:bg-gray-700">
         <svg
           className="w-12 h-12 text-gray-200"
           xmlns="http://www.w3.org/2000/svg"
