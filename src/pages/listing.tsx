@@ -462,7 +462,7 @@ export const getServerSideProps: GetServerSideProps<ListingPageProps> = async (c
   const { id } = context.query;
 
   // fetch listing data from /api/listings/get
-  const res = await fetch(`${Constants.WebHost}/api/listings/single?id=${id}`).then(res => res.json());
+  const res = await fetch(`${Constants.WebHost}/api/listings/single?id=${id}`, { cache: 'no-cache' }).then(res => res.json());
 
   return {
     props: {

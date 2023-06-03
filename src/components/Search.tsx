@@ -30,7 +30,7 @@ const Search = (props: Props) => {
     ActiveSection: 'Where',
     Location: 'United States',
     StartDate: DayJS(),
-    EndDate: DayJS(),
+    EndDate: DayJS().add(2, 'days'),
     NoOfGuests: 1,
   })
 
@@ -143,7 +143,7 @@ const Search = (props: Props) => {
               )}
 
               {State.ActiveSection === 'When' ? (
-                <div className='bg-white mt-4 p-4 rounded-xl'>
+                <div className='bg-white mt-4 p-4 rounded-xl w-full'>
                   <h2 className='text-xl font-semibold'>When?</h2>
                   {/* Input field for location */}
                   <div className='flex flex-row items-center px-4 py-3 mt-2 rounded-md w-full'>
@@ -154,7 +154,10 @@ const Search = (props: Props) => {
                       onChange={HandleDateSelect}
                       staticRanges={[]}
                       inputRanges={[]}
-                      displayMode="date" className='w-full'
+                      showDateDisplay={false}
+                      showPreview={true}
+                      displayMode="dateRange" 
+                      className='w-max'
                     />
                   </div>
                 </div> 

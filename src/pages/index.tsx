@@ -93,7 +93,7 @@ export default function Home(props: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${Constants.WebHost}/api/listings/get`);
+  const res = await fetch(`${Constants.WebHost}/api/listings/get`, { cache: 'no-cache' });
   const data = await res.json();
 
   return {

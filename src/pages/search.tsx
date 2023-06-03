@@ -78,7 +78,8 @@ export async function getServerSideProps(context: any) {
   const { location } = context.query;
 
   const searchResults = await fetch(
-    `${Constants.WebHost}/api/listings/search?location=${location}`
+    `${Constants.WebHost}/api/listings/search?location=${location}`,
+    { cache: 'no-cache' }
   ).then((res) => res.json());
 
   return {
