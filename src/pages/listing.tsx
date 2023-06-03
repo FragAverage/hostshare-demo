@@ -28,6 +28,7 @@ import Header from '@/components/Header';
 import pricing from '@/utils/pricing';
 import DayJS from '@/utils/dayjs';
 import Constants from '@/utils/constants';
+import axios from 'axios';
 
 type ListingPageProps = {
   Listing: Listing;
@@ -431,7 +432,7 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
                   src={Listing.info.images.data[State.SelectedImageId].url}
                   layout='fill'
                   objectFit="contain"
-                  quality={100}
+                  quality={75}
                 />
               </div>
 
@@ -461,8 +462,8 @@ export const getServerSideProps: GetServerSideProps<ListingPageProps> = async (c
   // get id from url query
   const { id } = context.query;
 
-  // fetch listing data from /api/listings/get
-  const res = await fetch(`${Constants.WebHost}/api/listings/single?id=${id}`, { cache: 'no-cache' }).then(res => res.json());
+  const res = await axios.get(`${Constants.WebHost}/api/listings/single?id=${id}`)
+    .then(res => res.data)
 
   return {
     props: {

@@ -8,10 +8,12 @@ export default function handler(
 ) {
   const { location } = req.query
 
+  const data = { ...payload } ;
+
   if(!location) {
     return res.status(404);
   }else{
-    payload.data = payload.data.filter((item) => item.info.location.city.toLowerCase() === location.toString().toLowerCase() && item.info.available)
-    res.send(payload)
+    data.data = data.data.filter((item) => item.info.location.city.toLowerCase() === location.toString().toLowerCase() && item.info.available)
+    res.send(data)
   }
 }

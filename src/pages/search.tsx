@@ -1,12 +1,14 @@
 import React from "react";
+import axios from "axios";
+import Link from "next/link";
 import dynamic from "next/dynamic";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
+import Constants from "@/utils/constants";
 import Header from "@/components/Header";
 import Tile from "@/components/Tile";
 import DayJS from "@/utils/dayjs";
-import Constants from "@/utils/constants";
-import Link from "next/link";
 
 type Props = {
   searchResults: any[];
@@ -62,7 +64,7 @@ const SearchPage = (props: Props) => {
           <div className="flex flex-col w-full h-full py-10 items-center">
             <div></div>
             Sorry we didnt find any results
-            <Link href="/" prefetch={false}>
+            <Link href="/" prefetch={false} legacyBehavior>
               <button className="bg-gray-100 px-4 py-2 mt-4 border border-gray-300 shadow-md rounded-xl">Go back</button>
             </Link>
           </div>
@@ -74,13 +76,17 @@ const SearchPage = (props: Props) => {
 
 export default SearchPage;
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, max-age=1, stale-while-revalidate=1',
+  );
+
   const { location } = context.query;
 
-  const searchResults = await fetch(
-    `${Constants.WebHost}/api/listings/search?location=${location}`,
-    { cache: 'no-cache' }
-  ).then((res) => res.json());
+  const searchResults = await axios.get(
+    `${Constants.WebHost}/api/listings/search?location=${location}`
+  ).then((res) => res.data);
 
   return {
     props: {

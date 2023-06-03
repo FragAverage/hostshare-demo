@@ -7,6 +7,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import Search from "./Search";
+import Link from "next/link";
 
 type Props = {
   placeholder?: string;
@@ -53,17 +54,18 @@ const Header = (props: Props) => {
     <header className={`${props.HideOnMobile ? 'hidden md:block' : ''} sticky top-0 z-50 bg-white shadow-md p-5 md:px-10`}>
       <div className="max-w-screen-xl grid grid-cols-1 sm:grid-cols-3 mx-auto">
         {/* Left */}
-        <div
-          onClick={() => Router.push("/")}
-          className="hidden sm:flex relative items-center h-10 cursor-pointer my-auto"
-        >
-          <Image
-            alt="Hostshare Logo"
-            src="/images/logo.png"
-            style={{ objectFit: "contain", objectPosition: "left" }}
-            fill
-          />
-        </div>
+        <Link href="/" prefetch={false} legacyBehavior>
+          <div
+            className="hidden sm:flex relative items-center h-10 cursor-pointer my-auto"
+            >
+            <Image
+              alt="Hostshare Logo"
+              src="/images/logo.png"
+              style={{ objectFit: "contain", objectPosition: "left" }}
+              fill
+              />
+          </div>
+        </Link>
 
         {/* middle */}
         {/* <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm">

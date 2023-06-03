@@ -108,7 +108,7 @@ const Search = (props: Props) => {
       <div className='flex flex-row w-full justify-between items-center border border-gray-200 rounded-full px-4 py-1 shadow-md'>
         {/* Magnifying Glass */}
         {props.ListingPageView ? (
-          <Link href="/" prefetch={false}>
+          <Link href="/" prefetch={false} legacyBehavior>
             <div className='flex'><FontAwesomeIcon icon={faChevronLeft} className='w-4 h-4'/></div>
           </Link>
         ) : (
@@ -124,7 +124,7 @@ const Search = (props: Props) => {
         <div className='fixed top-0 left-0 w-full bg-gray-950 bg-opacity-80 h-full z-50'>
           <div className='w-full h-full md:w-3/4 md:h-3/4 mx-auto bg-gray-100 relative'>
             <div className='relative w-full h-max p-4'>
-              <FontAwesomeIcon icon={faMultiply} className='w-4 h-4 top-6 right-6 border-2 p-2 rounded-full' onClick={HandleClose} />
+              <FontAwesomeIcon icon={faMultiply} className='w-4 h-4 top-6 right-6 border-2 p-2 rounded-full cursor-pointer hover:text-primary' onClick={HandleClose} />
               
               {State.ActiveSection === 'Where' ? (
                 <div className='bg-white mt-4 p-4 rounded-xl'>
@@ -146,7 +146,7 @@ const Search = (props: Props) => {
                 <div className='bg-white mt-4 p-4 rounded-xl w-full'>
                   <h2 className='text-xl font-semibold'>When?</h2>
                   {/* Input field for location */}
-                  <div className='flex flex-row items-center px-4 py-3 mt-2 rounded-md w-full'>
+                  <div className='flex flex-row items-center px-4 py-3 mt-2 justify-center rounded-md w-full'>
                     <DateRangePicker
                       ranges={[{startDate: new Date(State.StartDate.format('MM/DD/YYYY')), endDate: new Date(State.EndDate.format('MM/DD/YYYY')), key: 'selection'}]}
                       minDate={new Date()}
@@ -160,7 +160,7 @@ const Search = (props: Props) => {
                       className='w-max'
                     />
                   </div>
-                </div> 
+                </div>
               ) : (
                 <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("When")}>
                   <h2 className='text-xl font-semibold'>When?</h2>

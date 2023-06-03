@@ -8,10 +8,12 @@ export default function handler(
 ) {
   const { id } = req.query
 
+  const data = { ...payload };
+
   if(!id) {
     return res.status(404);
   }
 
-  const result = payload.data.filter((item) => item.info.id === id.toString()).slice(0,1); // Get one since there are duplicates in the payload
+  const result = data.data.filter((item) => item.info.id === id.toString()).slice(0,1); // Get one since there are duplicates in the payload
   res.send(result)
 }

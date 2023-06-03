@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Tile from "@/components/Tile";
 import Constants from "@/utils/constants";
 import { GetServerSideProps } from "next";
+import axios from "axios";
 
 type Props = {
   Data: Listings;
@@ -22,13 +23,13 @@ export default function Home(props: Props) {
     Data: props.Data
   });
 
-  // const RefIsFetching = React.useRef(false);
+  const RefIsFetching = React.useRef(false);
 
   // React.useEffect(() => {
   //   const FetchAsync = async () => {
   //     // fetch from /api/listings/get
-  //     const res = await fetch("/api/listings/get");
-  //     const data = await res.json();
+  //     const res = await axios.get("/api/listings/get");
+  //     const data = await res.data;
   //     console.log(data.source)
   //     SetState(prev => ({
   //       ...prev,
@@ -92,13 +93,12 @@ export default function Home(props: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${Constants.WebHost}/api/listings/get`, { cache: 'no-cache' });
-  const data = await res.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const response = await axios.get(`${Constants.WebHost}/api/listings/get`).then(res => res.data)
 
   return {
     props: {
-      Data: data,
+      Data: response,
     },
   };
 }
