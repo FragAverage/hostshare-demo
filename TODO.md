@@ -1,2 +1,1 @@
-- Change Search UI / Fix for Mobile
 - Filters Component at top of homepage

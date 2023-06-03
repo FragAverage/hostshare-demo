@@ -4,6 +4,8 @@ import { getCenter } from "geolib";
 import Image from "next/image";
 import React from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 
 type Props = {
   searchResults: Listing[];
@@ -32,26 +34,25 @@ const Map = (props: Props) => {
 
   // Set initial values for map viewport
   const [viewport, setViewport] = React.useState({
-    width: "100%",
-    height: "100%",
     latitude: center ? center.latitude : 0,
     longitude: center? center.longitude : 0,
-    zoom: 11,
+    zoom: 12,
   });
 
   return (
     <ReactMapGL
       mapStyle="mapbox://styles/fragaverage/cks1m8xvm23x117pdb9phbdoz"
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
+      attributionControl={false}
       {...viewport}
       onMove={(e) => setViewport(prev => ({
         ...prev,
         longitude: e.viewState.longitude,
         latitude: e.viewState.latitude,
       }))}
-      scrollZoom
+      style={{ width: "100%", height: "91.5vh" }}
     >
-      {/* {props.searchResults.map((result) => (
+      {props.searchResults.map((result) => (
         <div key={result.info.location.long} className="z-0 hover:shadow-lg">
           <Marker
             longitude={result.info.location.long}
@@ -66,11 +67,11 @@ const Map = (props: Props) => {
               })}
               className="cursor-pointer text-lg bg-white text-black rounded-full px-3 border-gray-200 border-2"
             >
-              {result.info.price.toFixed(2)}
+              ${result.info.price.toFixed(2)}
             </p>
           </Marker>
         </div>
-      ))} */}
+      ))}
     </ReactMapGL>
   );
 };

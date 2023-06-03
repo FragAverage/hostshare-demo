@@ -26,12 +26,17 @@ const SearchPage = (props: Props) => {
 
   const range = `${formattedStartDate} to ${formattedEndDate}`;
 
+  const Map = dynamic(() => import("@/components/Map"), {
+    ssr: false,
+  });
+
   return (
     <div>
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guests`} ListingPageView />
       <main className="flex flex-row">
         {props.searchResults.length > 0 ? (
-        <section className="flex flex-col h-screen pt-6 px-6 w-full">
+        <>
+        <section className="flex flex-col h-[91.5vh] py-6 px-6 w-full lg:w-1/2">
           <p className="text-xs">
             {props.searchResults.length} Stays - {range} - for {noOfGuests}{" "}
             guests
@@ -50,16 +55,17 @@ const SearchPage = (props: Props) => {
           </div> */}
 
           <div className="overflow-scroll scrollbar-hide">
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
               {props.searchResults.map((item: Listing, index) => (
                 <Tile key={index} Listing={item} StartDate={realStartDate} EndDate={realEndDate} />
               ))}
             </div>
           </div>
-          {/* <section className="hidden lg:flex lg:w-1/2 h-screen">
-            <Map searchResults={props.searchResults} />
-          </section> */}
         </section>
+        <section className="hidden lg:flex lg:w-1/2 items-start relative">
+          <Map searchResults={props.searchResults} />
+        </section>
+          </>
         ) : (
           <div className="flex flex-col w-full h-full py-10 items-center">
             <div></div>
