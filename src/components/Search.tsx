@@ -121,110 +121,112 @@ const Search = (props: Props) => {
         <div className='flex'><FontAwesomeIcon icon={faSliders} className='w-3 h-3 rounded-full border border-gray-300 p-2 cursor-pointer' /></div>
       </div>
       {State.IsOpen && (
-        <div className='fixed top-0 left-0 w-full h-full bg-gray-100 z-50'>
-          <div className='relative w-full h-full p-4'>
-            <FontAwesomeIcon icon={faMultiply} className='w-4 h-4 top-6 right-6 border-2 p-2 rounded-full' onClick={HandleClose} />
-            
-            {State.ActiveSection === 'Where' ? (
-              <div className='bg-white mt-4 p-4 rounded-xl'>
-                <h2 className='text-xl font-semibold'>Where to?</h2>
-                {/* Input field for location */}
-                <div className='flex flex-row items-center px-4 py-3 border mt-2 border-gray-300 rounded-md w-full'>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className=' w-4 h-4' />
-                  <input type='text' className='ml-2 w-full active:border-none focus:outline-none' value={State.Location} onChange={HandleLocationInputChange} />
-                </div>
-              </div> 
-            ) : (
-              <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("Where")}>
-                <h2 className='text-xl font-semibold'>Where to?</h2>
-                <p className='text-base font-light'>{State.Location}</p>
-              </div>
-            )}
-
-            {State.ActiveSection === 'When' ? (
-              <div className='bg-white mt-4 p-4 rounded-xl'>
-                <h2 className='text-xl font-semibold'>When?</h2>
-                {/* Input field for location */}
-                <div className='flex flex-row items-center px-4 py-3 mt-2 rounded-md w-full'>
-                  <DateRangePicker
-                    ranges={[{startDate: new Date(State.StartDate.format('MM/DD/YYYY')), endDate: new Date(State.EndDate.format('MM/DD/YYYY')), key: 'selection'}]}
-                    minDate={new Date()}
-                    rangeColors={["#329a9a"]}
-                    onChange={HandleDateSelect}
-                    staticRanges={[]}
-                    inputRanges={[]}
-                    displayMode="date" className='w-full'
-                  />
-                </div>
-              </div> 
-            ) : (
-              <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("When")}>
-                <h2 className='text-xl font-semibold'>When?</h2>
-                <p className='text-base font-light'>{State.StartDate.format('MM/DD/YYYY')} - {State.EndDate.format("MM/DD/YYYY")}</p>
-              </div>
-            )}
-
-            {State.ActiveSection === 'Who' ? (
-              <div className='bg-white mt-4 p-4 rounded-xl'>
-                <h2 className='text-xl font-semibold'>Who&apos;s coming?</h2>
-                {/* Input field for location */}
-                <div className='flex flex-row items-center border-b justify-between px-4 py-3 mt-2 w-full'>
-                  <div className="flex flex-col">
-                    <span>Adults</span>
-                    <span>Ages 13 or above</span>
+        <div className='fixed top-0 left-0 w-full bg-gray-950 bg-opacity-80 h-full z-50'>
+          <div className='w-full h-full md:w-3/4 md:h-3/4 mx-auto bg-gray-100 relative'>
+            <div className='relative w-full h-max p-4'>
+              <FontAwesomeIcon icon={faMultiply} className='w-4 h-4 top-6 right-6 border-2 p-2 rounded-full' onClick={HandleClose} />
+              
+              {State.ActiveSection === 'Where' ? (
+                <div className='bg-white mt-4 p-4 rounded-xl'>
+                  <h2 className='text-xl font-semibold'>Where to?</h2>
+                  {/* Input field for location */}
+                  <div className='flex flex-row items-center px-4 py-3 border mt-2 border-gray-300 rounded-md w-full'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className=' w-4 h-4' />
+                    <input type='text' className='ml-2 w-full active:border-none focus:outline-none' value={State.Location} onChange={HandleLocationInputChange} />
                   </div>
-                  <div className='flex flex-row items-center'>
-                    <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
-                    <span className='mx-2'>1</span>
-                    <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
-                  </div>
-                </div>
-                <div className='flex flex-row items-center border-b justify-between px-4 py-3 mt-2 w-full'>
-                  <div className="flex flex-col">
-                    <span>Children</span>
-                    <span>Ages 2-12</span>
-                  </div>
-                  <div className='flex flex-row items-center'>
-                    <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
-                    <span className='mx-2'>0</span>
-                    <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
-                  </div>
-                </div>
-                <div className='flex flex-row items-center justify-between px-4 py-3 mt-2 w-full'>
-                  <div className="flex flex-col">
-                    <span>Infants</span>
-                    <span>Under 2</span>
-                  </div>
-                  <div className='flex flex-row items-center'>
-                    <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
-                    <span className='mx-2'>0</span>
-                    <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
-                  </div>
-                </div>
-              </div> 
-            ) : (
-              <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("Who")}>
-                <h2 className='text-xl font-semibold'>Who?</h2>
-                <p className='text-base font-light'>{State.NoOfGuests} guest(s)</p>
-              </div>
-            )}
-
-
-          </div>
-          {/* Footer */}
-          <div className='fixed bottom-0 left-0 w-full h-16 bg-white border-t border-gray-300 flex flex-row items-center justify-between px-4'>
-            <button className='w-full bg-primary text-white rounded-md p-2 hover:bg-primary/80' onClick={() => State.ActiveSection === 'Who' ? HandleSearch() : HandleClickNext()}>
-              {State.ActiveSection === 'Who' ? (
-                <>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='w-4 h-4 mr-2' />
-                  Search
-                </>
+                </div> 
               ) : (
-                <>
-                  Next
-                </>
+                <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("Where")}>
+                  <h2 className='text-xl font-semibold'>Where to?</h2>
+                  <p className='text-base font-light'>{State.Location}</p>
+                </div>
               )}
-            </button>
+
+              {State.ActiveSection === 'When' ? (
+                <div className='bg-white mt-4 p-4 rounded-xl'>
+                  <h2 className='text-xl font-semibold'>When?</h2>
+                  {/* Input field for location */}
+                  <div className='flex flex-row items-center px-4 py-3 mt-2 rounded-md w-full'>
+                    <DateRangePicker
+                      ranges={[{startDate: new Date(State.StartDate.format('MM/DD/YYYY')), endDate: new Date(State.EndDate.format('MM/DD/YYYY')), key: 'selection'}]}
+                      minDate={new Date()}
+                      rangeColors={["#329a9a"]}
+                      onChange={HandleDateSelect}
+                      staticRanges={[]}
+                      inputRanges={[]}
+                      displayMode="date" className='w-full'
+                    />
+                  </div>
+                </div> 
+              ) : (
+                <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("When")}>
+                  <h2 className='text-xl font-semibold'>When?</h2>
+                  <p className='text-base font-light'>{State.StartDate.format('MM/DD/YYYY')} - {State.EndDate.format("MM/DD/YYYY")}</p>
+                </div>
+              )}
+
+              {State.ActiveSection === 'Who' ? (
+                <div className='bg-white mt-4 p-4 rounded-xl'>
+                  <h2 className='text-xl font-semibold'>Who&apos;s coming?</h2>
+                  {/* Input field for location */}
+                  <div className='flex flex-row items-center border-b justify-between px-4 py-3 mt-2 w-full'>
+                    <div className="flex flex-col">
+                      <span>Adults</span>
+                      <span>Ages 13 or above</span>
+                    </div>
+                    <div className='flex flex-row items-center'>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
+                      <span className='mx-2'>1</span>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
+                    </div>
+                  </div>
+                  <div className='flex flex-row items-center border-b justify-between px-4 py-3 mt-2 w-full'>
+                    <div className="flex flex-col">
+                      <span>Children</span>
+                      <span>Ages 2-12</span>
+                    </div>
+                    <div className='flex flex-row items-center'>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
+                      <span className='mx-2'>0</span>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
+                    </div>
+                  </div>
+                  <div className='flex flex-row items-center justify-between px-4 py-3 mt-2 w-full'>
+                    <div className="flex flex-col">
+                      <span>Infants</span>
+                      <span>Under 2</span>
+                    </div>
+                    <div className='flex flex-row items-center'>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
+                      <span className='mx-2'>0</span>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
+                    </div>
+                  </div>
+                </div> 
+              ) : (
+                <div className='bg-white mt-4 p-4 rounded-xl flex flex-row justify-between items-center' onClick={() => OnClickSection("Who")}>
+                  <h2 className='text-xl font-semibold'>Who?</h2>
+                  <p className='text-base font-light'>{State.NoOfGuests} guest(s)</p>
+                </div>
+              )}
+
+
+            </div>
+            {/* Footer */}
+            <div className='fixed sm:absolute bottom-0 left-0 w-full h-16 bg-gray-100 border-t rounded-b-xl border-gray-300 flex flex-row items-center justify-between px-4'>
+              <button className='w-full bg-primary text-white rounded-md p-2 hover:bg-primary/80' onClick={() => State.ActiveSection === 'Who' ? HandleSearch() : HandleClickNext()}>
+                {State.ActiveSection === 'Who' ? (
+                  <>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className='w-4 h-4 mr-2' />
+                    Search
+                  </>
+                ) : (
+                  <>
+                    Next
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}
