@@ -427,10 +427,10 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
               </div>
 
               {/* Dots */}
-              <div className='flex flex-row justify-center items-center absolute bottom-5 w-full'>
-                {Listing.info.images.data.map((item, i) => {
+              <div className='flex flex-row justify-center items-center absolute bottom-5 w-full overflow-hidden'>
+                {Listing.info.images.data.length < 25 && Listing.info.images.data.map((item, i) => {
                   return (
-                    <div className={`w-3 h-3 rounded-full mx-1 cursor-pointer ${State.SelectedImageId === i ? 'bg-primary' : 'bg-gray-400'}`} key={i}></div>
+                    <div className={`w-3 h-3 rounded-full mx-1 ${State.SelectedImageId === i ? 'bg-primary' : 'bg-gray-400'}`} key={i}></div>
                   )}
                 )}
               </div>
