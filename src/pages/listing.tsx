@@ -27,6 +27,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import pricing from '@/utils/pricing';
 import DayJS from '@/utils/dayjs';
+import Constants from '@/utils/constants';
 
 type ListingPageProps = {
   Listing: Listing;
@@ -452,7 +453,7 @@ export const getServerSideProps: GetServerSideProps<ListingPageProps> = async (c
   const { id } = context.query;
 
   // fetch listing data from /api/listings/get
-  const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/listings/single?id=${id}`).then(res => res.json());
+  const res = await fetch(`${Constants.WebHost}/api/listings/single?id=${id}`).then(res => res.json());
 
   return {
     props: {

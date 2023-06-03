@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import Tile from "@/components/Tile";
 import DayJS from "@/utils/dayjs";
+import Constants from "@/utils/constants";
 
 type Props = {
   searchResults: any[];
@@ -68,7 +69,7 @@ export async function getServerSideProps(context: any) {
   const { location } = context.query;
 
   const searchResults = await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/listings/get?location=${location}`
+    `${Constants.WebHost}/api/listings/get?location=${location}`
   ).then((res) => res.json());
 
   return {
