@@ -167,7 +167,7 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
     <div>
       <Header HideOnMobile />
 
-      <main className="max-w-screen-xl mx-auto relative mb-10" onClick={OnCloseModal}>
+      <main className="max-w-screen-xl mx-auto relative mb-20 sm:mb-10" onClick={OnCloseModal}>
         {/* Title Bar */}
         <section className="md:pt-6 md:px-2">
           {/* MOBILE ONLY IMAGE SECTION */}
@@ -223,8 +223,9 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
                 src={Listing.info.mainImage.url}
                 width={700}
                 height={700}
-                className="rounded-l-xl"
+                className="rounded-l-xl cursor-pointer"
                 objectFit="cover"
+                onClick={() => SetState({ ...State, ImageModalOpen: true, SelectedImageId: 0 })}
               />
             </div>
             <div className='flex flex-col w-1/4 py-2 mr-2 space-y-6 gap-2'>
@@ -234,6 +235,8 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
                 width={400}
                 height={400}
                 objectFit="cover"
+                onClick={() => SetState({ ...State, ImageModalOpen: true, SelectedImageId: 2 })}
+                className='cursor-pointer'
               />
               <Image
                 alt=""
@@ -241,6 +244,9 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
                 width={400}
                 height={400}
                 objectFit="cover"
+                onClick={() => SetState({ ...State, ImageModalOpen: true, SelectedImageId: 3 })}
+                className='cursor-pointer'
+
               />
             </div>
             <div className='flex flex-col w-1/4 py-2 space-y-6 gap-2'>
@@ -249,16 +255,19 @@ const ListingPage = ({ Listing }: ListingPageProps) => {
                 src={Listing.info.images.data[4].url}
                 width={600}
                 height={600}
-                className="rounded-r-xl"
                 objectFit="cover"
+                onClick={() => SetState({ ...State, ImageModalOpen: true, SelectedImageId: 4 })}
+                className='rounded-r-xl cursor-pointer'
               />
               <Image
                 alt=""
                 src={Listing.info.images.data[5].url}
                 width={600}
                 height={600}
-                className="rounded-r-xl"
                 objectFit="cover"
+                onClick={() => SetState({ ...State, ImageModalOpen: true, SelectedImageId: 5 })}
+                className='rounded-r-xl cursor-pointer'
+
               />
             </div>
             <div className='absolute bottom-10 right-10'>

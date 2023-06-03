@@ -23,12 +23,15 @@ const SearchPage = (props: Props) => {
 
   const range = `${formattedStartDate} to ${formattedEndDate}`;
 
-  const Map = dynamic(() => import("@/components/Map"));
+  const HandleGoBack = () => {
+    router.push('/');
+  };
 
   return (
     <div>
-      <Header placeholder={`${location} | ${range} | ${noOfGuests} guests`} />
+      <Header placeholder={`${location} | ${range} | ${noOfGuests} guests`} ListingPageView />
       <main className="flex flex-row">
+        {props.searchResults.length > 0 ? (
         <section className="flex flex-col h-screen pt-6 px-6 w-full">
           <p className="text-xs">
             {props.searchResults.length} Stays - {range} - for {noOfGuests}{" "}
@@ -39,25 +42,32 @@ const SearchPage = (props: Props) => {
             Stays in {location}
           </h1>
 
-          <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
+          {/* <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
             <p className="button">Cancellation Flexibility</p>
             <p className="button">Type of Place</p>
             <p className="button">Price</p>
             <p className="button">Rooms</p>
             <p className="button">More Filters</p>
-          </div>
+          </div> */}
 
           <div className="overflow-scroll scrollbar-hide">
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
               {props.searchResults.map((item: Listing, index) => (
                 <Tile key={index} Listing={item} StartDate={realStartDate} EndDate={realEndDate} />
               ))}
             </div>
           </div>
+          {/* <section className="hidden lg:flex lg:w-1/2 h-screen">
+            <Map searchResults={props.searchResults} />
+          </section> */}
         </section>
-        {/* <section className="hidden lg:flex lg:w-1/2 h-screen">
-          <Map searchResults={props.searchResults} />
-        </section> */}
+        ) : (
+          <div className="flex flex-col w-full h-full py-10 items-center">
+            <div></div>
+            Sorry we didnt find any results
+            <button className="bg-gray-100 px-4 py-2 mt-4 border border-gray-300 shadow-md rounded-xl" onClick={HandleGoBack}>Go back</button>
+          </div>
+        )}
       </main>
     </div>
   );

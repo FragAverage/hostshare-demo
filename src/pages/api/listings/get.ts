@@ -9,9 +9,10 @@ export default function handler(
   const { location } = req.query
 
   if(!location) {
+    payload.data = payload.data.filter((item) => item.info.available).slice(0, 20)
     res.send(payload)
   }else{
-    payload.data = payload.data.filter((item) => item.info.location.city.toLowerCase() === location.toString().toLowerCase())
+    payload.data = payload.data.filter((item) => item.info.location.city.toLowerCase() === location.toString().toLowerCase() && item.info.available)
     res.send(payload)
   }
 }
