@@ -27,7 +27,6 @@ const BookingWidget = ({ Listing, CheckIn, CheckOut }: BookingWidgetProps) => {
   }
 
   return (
-    /* Airbnb Style Booking Widget */
     <div className='w-full bg-white shadow rounded-xl shadow-gray-500 p-6'>
       <div className='flex flex-row justify-between'>
         <div className='flex flex-row items-end'>

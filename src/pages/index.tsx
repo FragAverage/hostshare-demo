@@ -1,12 +1,11 @@
 import React from "react";
+import axios from "axios";
+import { GetServerSideProps } from "next";
 
-import SkeletonTile from "@/components/SkeletonTile";
+import Constants from "@/utils/constants";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Tile from "@/components/Tile";
-import Constants from "@/utils/constants";
-import { GetServerSideProps } from "next";
-import axios from "axios";
 
 type Props = {
   Data: Listings;
@@ -23,28 +22,6 @@ export default function Home(props: Props) {
     Data: props.Data
   });
 
-  const RefIsFetching = React.useRef(false);
-
-  // React.useEffect(() => {
-  //   const FetchAsync = async () => {
-  //     // fetch from /api/listings/get
-  //     const res = await axios.get("/api/listings/get");
-  //     const data = await res.data;
-  //     console.log(data.source)
-  //     SetState(prev => ({
-  //       ...prev,
-  //       IsFetching: false,
-  //       Data: data,
-  //     }))
-  //     RefIsFetching.current = false;
-  //   }
-
-  //   if(State.IsFetching && !RefIsFetching.current){
-  //     RefIsFetching.current = true;
-  //     FetchAsync();
-  //   }
-  // }, [State.IsFetching]);
-
   return (
     <div>
       <Header />
@@ -54,36 +31,12 @@ export default function Home(props: Props) {
         <section className="pt-6">
           {/* Get data from server */}
           <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:gap-4">
-            {State.Data?.data ? State.Data?.data.filter((item: Listing) => item.info.available).slice(0, 20).map((item: Listing, index) => (
+            {State.Data?.data && State.Data?.data.filter((item: Listing) => item.info.available).slice(0, 20).map((item: Listing, index) => (
               <Tile
                 key={index}
                 Listing={item}
                 />
-            )) : (
-              // TODO: Do this correctly - this is a hack
-              <>
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-                <SkeletonTile />
-              </>
-              )}
+            ))}
           </div>
         </section>
       </main>
@@ -93,7 +46,7 @@ export default function Home(props: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await axios.get(`${Constants.WebHost}/api/listings/get`).then(res => res.data)
 
   return {

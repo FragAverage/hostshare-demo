@@ -35,36 +35,36 @@ const SearchPage = (props: Props) => {
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guests`} ListingPageView />
       <main className="flex flex-row">
         {props.searchResults.length > 0 ? (
-        <>
-        <section className="flex flex-col h-[91.5vh] py-6 px-6 w-full lg:w-1/2">
-          <p className="text-xs">
-            {props.searchResults.length} Stays - {range} - for {noOfGuests}{" "}
-            guests
-          </p>
+          <>
+            <section className="flex flex-col h-[91.5vh] py-6 px-6 w-full lg:w-1/2">
+              <p className="text-xs">
+                {props.searchResults.length} Stays - {range} - for {noOfGuests}{" "}
+                guests
+              </p>
 
-          <h1 className="text-3xl font-semibold mt-2 mb-6">
-            Stays in {location}
-          </h1>
+              <h1 className="text-3xl font-semibold mt-2 mb-6">
+                Stays in {location}
+              </h1>
 
-          {/* <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
-            <p className="button">Cancellation Flexibility</p>
-            <p className="button">Type of Place</p>
-            <p className="button">Price</p>
-            <p className="button">Rooms</p>
-            <p className="button">More Filters</p>
-          </div> */}
+              {/* <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
+                <p className="button">Cancellation Flexibility</p>
+                <p className="button">Type of Place</p>
+                <p className="button">Price</p>
+                <p className="button">Rooms</p>
+                <p className="button">More Filters</p>
+              </div> */}
 
-          <div className="overflow-scroll scrollbar-hide">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
-              {props.searchResults.map((item: Listing, index) => (
-                <Tile key={index} Listing={item} StartDate={realStartDate} EndDate={realEndDate} />
-              ))}
-            </div>
-          </div>
-        </section>
-        <section className="hidden lg:flex lg:w-1/2 items-start relative">
-          <Map searchResults={props.searchResults} />
-        </section>
+              <div className="overflow-scroll scrollbar-hide">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
+                  {props.searchResults.map((item: Listing, index) => (
+                    <Tile key={index} Listing={item} StartDate={realStartDate} EndDate={realEndDate} />
+                  ))}
+                </div>
+              </div>
+            </section>
+            <section className="hidden lg:flex lg:w-1/2 items-start relative">
+              <Map searchResults={props.searchResults} />
+            </section>
           </>
         ) : (
           <div className="flex flex-col w-full h-full py-10 items-center">
@@ -83,11 +83,6 @@ const SearchPage = (props: Props) => {
 export default SearchPage;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  context.res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, max-age=1, stale-while-revalidate=1',
-  );
-
   const { location } = context.query;
 
   const searchResults = await axios.get(
@@ -97,6 +92,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   return {
     props: {
       searchResults: searchResults.data.slice(0, 40),
-    },
+    }
   };
 }

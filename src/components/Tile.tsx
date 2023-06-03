@@ -30,20 +30,6 @@ const Tile = ({ Listing, StartDate, EndDate }: Props) => {
     return CheckOutDate.diff(CheckInDate, 'days')
   }
 
-  const CalculateFee = () => {
-    return (Listing.info.price * CalculateNights()).toFixed(2)
-  }
-
-  const CalculateCleaningFee  = () => {
-    return (Listing.info.price * CalculateNights()/4)
-  }
-
-  const CalculateTotalPrice = () => {
-    const Nights = CalculateNights() * Listing.info.price
-    const CleaningFee = CalculateCleaningFee()
-    return (Nights + CleaningFee).toFixed(2)
-  }
-
   return (
     <div className="w-full cursor-pointer">
       <Link href={GenerateLink()}>

@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 import dynamic from 'next/dynamic';
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/router';
@@ -28,7 +29,6 @@ import Header from '@/components/Header';
 import pricing from '@/utils/pricing';
 import DayJS from '@/utils/dayjs';
 import Constants from '@/utils/constants';
-import axios from 'axios';
 
 type ListingPageProps = {
   Listing: Listing;

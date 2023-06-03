@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const SkeletonTile = (props: Props) => {
+const SkeletonTile = () => {
   return (
     <div
       className="w-full animate-pulse"

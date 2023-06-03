@@ -17,8 +17,6 @@ const MobileImageCarousel = (props: MobileImageCarouselProps) => {
     CurrentImage: 0,
   });
 
-
-
   return (
     <div className='w-screen h-64 relative' onDrag={() => console.log("drag")}>
       {/* Image with mobile interactivity */}
@@ -43,13 +41,6 @@ const MobileImageCarousel = (props: MobileImageCarouselProps) => {
       <div className='absolute z-10 bottom-3 right-3 text-[11px] text-white bg-slate-900/90 rounded-md px-2 py-0.5 font-semibold'>
         {State.CurrentImage + 1} / {props.Images.length}
       </div>
-
-      {/* <Image
-        alt=""
-        src={props.Images[State.CurrentImage].url}
-        layout='fill'
-        onDrag={() => console.log('drag')}
-      /> */}
     </div>
   )
 }

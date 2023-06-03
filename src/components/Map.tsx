@@ -1,11 +1,7 @@
-import { faCircleXmark, faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getCenter } from "geolib";
-import Image from "next/image";
 import React from "react";
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import { getCenter } from "geolib";
+import ReactMapGL, { Marker } from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
-
 
 type Props = {
   searchResults: Listing[];
@@ -57,8 +53,6 @@ const Map = (props: Props) => {
           <Marker
             longitude={result.info.location.long}
             latitude={result.info.location.lat}
-            // offsetLeft={-20}
-            // offsetTop={-10}
           >
             <p
               onClick={() => setSelectedLocation({
