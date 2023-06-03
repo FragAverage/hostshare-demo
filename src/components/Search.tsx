@@ -103,6 +103,20 @@ const Search = (props: Props) => {
     }))
   }
 
+  const HandleGuestsAdd = () => {
+    SetState(prev => ({
+      ...prev,
+      NoOfGuests: prev.NoOfGuests + 1
+    }))
+  }
+
+  const HandleGuestsRemove = () => {
+    SetState(prev => ({
+      ...prev,
+      NoOfGuests: prev.NoOfGuests === 0 ? 0 : prev.NoOfGuests - 1
+    }))
+  }
+
   return (
     <>
       <div className='flex flex-row w-full justify-between items-center border border-gray-200 rounded-full px-4 py-1 shadow-md'>
@@ -174,9 +188,9 @@ const Search = (props: Props) => {
                       <span>Ages 13 or above</span>
                     </div>
                     <div className='flex flex-row items-center'>
-                      <button className='w-8 h-8 border border-gray-300 rounded-full'>-</button>
-                      <span className='mx-2'>1</span>
-                      <button className='w-8 h-8 border border-gray-300 rounded-full'>+</button>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full' onClick={HandleGuestsRemove}>-</button>
+                      <span className='mx-2'>{State.NoOfGuests}</span>
+                      <button className='w-8 h-8 border border-gray-300 rounded-full' onClick={HandleGuestsAdd}>+</button>
                     </div>
                   </div>
                   <div className='flex flex-row items-center border-b justify-between px-4 py-3 mt-2 w-full'>
